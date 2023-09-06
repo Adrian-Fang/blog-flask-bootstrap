@@ -1,0 +1,7 @@
+<!DOCTYPE html>
+<title>Error Page</title>
+{% if statusCode %}
+<h1>Hello {{ statusCode }}!</h1>
+{% else %}
+<h1>An error encountered, please try again later!</h1>
+{% endif %}
