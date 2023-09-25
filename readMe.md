@@ -1,5 +1,10 @@
 ## How to init database and run app
 
+### Activate virtual env
+```bash
+source ./venv/bin/activate
+```
+### Run application in debug mode
 ```bash
 flask --app flaskr init-db
 flask --app flaskr run --debug
