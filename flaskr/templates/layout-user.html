@@ -13,18 +13,13 @@
     <div class="container">
       <a class="navbar-brand text-light" href="/">Flaskr Blog</a>
       <div>
-        {% if g.user %}
         <a class="pe-3 text-light text-decoration-none" href="/user">{{ g.user['username'] }}</a>
-        <a class="text-light text-decoration-none" href="{{ url_for('auth.logout') }}">log out</a>
-        {% else %}
-        <a href="{{ url_for('auth.register')}}" class="pe-3 text-light text-decoration-none">Register</a>
-        <a href="{{ url_for('auth.login') }}" class="text-light text-decoration-none">Log In</a>
-        {% endif %}
       </div>
     </div>
   </nav>
 
   <main class="container">
+    <!-- page heading -->
     <header class="py-3">
       {% block header %}{% endblock %}
     </header>
@@ -36,6 +31,7 @@
     </div>
     {% endfor %}
 
+    <!-- page content -->
     {% block content %}{% endblock %}
 
   </main>

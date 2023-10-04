@@ -30,12 +30,16 @@ def create_app(test_config=None):
         return "Hello, World!"
 
     from . import db
-    from . import auth
-    from . import blog
+    from .auth import auth
+    from .blog import blog
+    from .user import user
+    from .admin import admin
 
     db.init_app(app)
-    app.register_blueprint(auth.auth)
-    app.register_blueprint(blog.bp)
+    app.register_blueprint(auth)
+    app.register_blueprint(blog)
+    app.register_blueprint(user)
+    app.register_blueprint(admin)
     app.add_url_rule("/", endpoint="index")
 
     return app
