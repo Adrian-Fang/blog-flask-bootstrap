@@ -1,8 +1,6 @@
-from flask import Blueprint, render_template
+from flask import Blueprint
+from flaskr.controllers.admin import AdminController
 
-admin = Blueprint("admin", __name__)
+adminRouter = Blueprint("admin", __name__)
 
-
-@admin.route("/admin")
-def index():
-    return render_template("admin/index.html")
+adminRouter.route("/admin")(AdminController.adminHome)

@@ -1,7 +1,9 @@
 ## About
-A sample Blog application made with Python Flask v2.3.3 and Jinja2 v3.1.2
+A sample Blog application made with Python Flask v2.3.3, Jinja2 v3.1.2 and Bootstrap v5.3.2
 
-Using Bootstrap v5.3 for relieving pain writing css. A few practice borrowed from Node.js + EJS stack.
+Using Bootstrap for relieving pain writing css. A few practice borrowed from Node.js + EJS stack, such as:
+* using different layouts for different pages
+* introduced controllers (that of MVC) to take over request processing and response sending
 ## How to init database and run app
 ### Activate virtual env
 ```bash

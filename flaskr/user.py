@@ -1,8 +1,7 @@
-from flask import Blueprint, render_template
+from flask import Blueprint
+from flaskr.controllers.user import UserController
 
-user = Blueprint("user", __name__)
+userRouter = Blueprint("user", __name__)
 
 
-@user.route("/user")
-def index():
-    return render_template("user/index.html")
+userRouter.route("/user")(UserController.userHome)

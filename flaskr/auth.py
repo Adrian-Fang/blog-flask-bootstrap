@@ -13,10 +13,10 @@ from flask import (
 from werkzeug.security import check_password_hash, generate_password_hash
 from flaskr.db import get_db
 
-auth = Blueprint("auth", __name__, url_prefix="/auth")
+authRouter = Blueprint("auth", __name__, url_prefix="/auth")
 
 
-@auth.route("/register", methods=("GET", "POST"))
+@authRouter.route("/register", methods=("GET", "POST"))
 def register():
     if request.method == "POST":
         username = request.form.get("username")
@@ -46,7 +46,7 @@ def register():
     return render_template("auth/register.html")
 
 
-@auth.route("/login", methods=("GET", "POST"))
+@authRouter.route("/login", methods=("GET", "POST"))
 def login():
     if request.method == "POST":
         username = request.form["username"]
@@ -72,7 +72,7 @@ def login():
     return render_template("auth/login.html")
 
 
-@auth.before_app_request
+@authRouter.before_app_request
 def load_logged_in_user():
     user_id = session.get("user_id")
 
@@ -84,7 +84,7 @@ def load_logged_in_user():
         )
 
 
-@auth.route("/logout")
+@authRouter.route("/logout")
 def logout():
     session.clear()
     return redirect(url_for("index"))
