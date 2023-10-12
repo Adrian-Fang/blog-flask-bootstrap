@@ -1,5 +1,5 @@
 from flask import Blueprint
-from flaskr.controllers.admin import AdminController
+from app.controllers.admin import AdminController
 
 adminRouter = Blueprint("admin", __name__)
 

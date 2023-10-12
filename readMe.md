@@ -20,6 +20,7 @@ flask --app flaskr run --debug
 
 ### Links
 [Markdown Cheatsheet](https://markdown.com.cn/cheat-sheet.html)
+[Example of Flask App](https://www.digitalocean.com/community/tutorials/how-to-structure-a-large-flask-application-with-flask-blueprints-and-flask-sqlalchemy)
 
 ## How to run tests &
 Can't just run `pytest`, have to run pytest as a module in python (which adds the current directory to sys.path).

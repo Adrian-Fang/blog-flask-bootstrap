@@ -1,5 +1,5 @@
 from flask import Blueprint
-from flaskr.controllers.blog import BlogController
+from app.controllers.blog import BlogController
 
 blogRouter = Blueprint("blog", __name__)
 
