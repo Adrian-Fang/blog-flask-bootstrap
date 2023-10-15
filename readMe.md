@@ -11,8 +11,8 @@ source ./venv/bin/activate
 ```
 ### Run application in debug mode
 ```bash
-flask --app flaskr init-db
-flask --app flaskr run --debug
+flask init-db
+flask run --debug
 ```
 
 ### Features
@@ -36,3 +36,5 @@ or
 coverage run -m pytest
 coverage report
 ```
+
+## Database Stuff

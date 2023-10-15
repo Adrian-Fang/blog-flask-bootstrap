@@ -1,13 +1,14 @@
 from flask import render_template, request, flash, redirect, g, url_for
 from werkzeug.exceptions import abort
+from sqlalchemy import select
 from app.routes.auth import login_required
 from app.extension import db
-from app.models.post import Post
+from app.models import Post, User
 
 
 class BlogController:
     def index():
-        posts = Post.query.all()
+        posts = db.session.scalars(select(Post))
         return render_template("blog/index.html", posts=posts)
 
     @login_required
@@ -23,7 +24,7 @@ class BlogController:
             if error is not None:
                 flash(error)
             else:
-                new_post = Post(title=title, body=body)
+                new_post = Post(title=title, body=body, user_id=g.user.id)
                 db.session.add(new_post)
                 db.session.commit()
                 return redirect(url_for("blog.index"))
@@ -51,8 +52,8 @@ class BlogController:
                 flash(error)
             else:
                 db.session.execute(
-                    "UPDATE post SET title = ?, body = ?" "WHERE id = ?",
-                    (title, body, id),
+                    db.update(Post),
+                    [{"id": post.id, "title": title, "body": body}],
                 )
                 db.session.commit()
                 return redirect(url_for("blog.index"))
@@ -65,7 +66,7 @@ def get_post(id, check_author=True):
     if post is None:
         abort(404, f"Post id {id} doesn't exist.")
 
-    if check_author and post["author_id"] != g.user["id"]:
+    if check_author and post["user_id"] != g.user["id"]:
         abort(403)
 
     return post
