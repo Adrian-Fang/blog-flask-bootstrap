@@ -10,7 +10,8 @@ from flask import (
     session,
     url_for,
 )
-from sqlalchemy import select, text
+from sqlalchemy import select
+from sqlalchemy.exc import IntegrityError, SQLAlchemyError
 from werkzeug.security import check_password_hash, generate_password_hash
 from app.extension import db
 from app.models import User
@@ -35,8 +36,10 @@ def register():
                 hashed_password = generate_password_hash(password)
                 db.session.add(User(username=username, password=hashed_password))
                 db.session.commit()
-            except db.IntegrityError:
+            except IntegrityError:
                 error = f"User ${username} is already registered."
+            except SQLAlchemyError:
+                error = "An error occurred while creating user."
             else:
                 return redirect(url_for("auth.login"))
 
