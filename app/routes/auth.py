@@ -40,8 +40,8 @@ def register():
                 error = f"User ${username} is already registered."
             except SQLAlchemyError:
                 error = "An error occurred while creating user."
-            else:
-                return redirect(url_for("auth.login"))
+        else:
+            return redirect(url_for("auth.login"))
 
         flash(error)
 
@@ -64,7 +64,7 @@ def login():
         if error is None:
             session.clear()
             session["user_id"] = user.id
-            return redirect(url_for("blog.index"))
+            return redirect(url_for("blog.home"))
 
         flash(error)
 

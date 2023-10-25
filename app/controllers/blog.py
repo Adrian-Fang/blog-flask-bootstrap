@@ -8,12 +8,16 @@ from app.models import Post
 
 
 class BlogController:
-    def index(self):
+    def home():
+        posts = db.session.scalars(select(Post))
+        return render_template("index.html", posts=posts)
+
+    def render_posts():
         posts = db.session.scalars(select(Post))
         return render_template("blog/index.html", posts=posts)
 
     @login_required
-    def create(self):
+    def create():
         if request.method == "POST":
             title = request.form["title"]
             body = request.form["body"]
@@ -38,7 +42,8 @@ class BlogController:
         return render_template("blog/create.html")
 
     @login_required
-    def delete(self, post_id: id):
+    def delete(id):
+        post_id = id
         try:
             post = db.get_or_404(Post, post_id)
             db.session.delete(post)
@@ -46,10 +51,11 @@ class BlogController:
         except SQLAlchemyError:
             abort(500, message=f"An error occurred while deleting post {post_id}.")
 
-        return redirect(url_for("blog.index"))
+        return redirect(url_for("blog.home"))
 
     @login_required
-    def update(self, post_id: id):
+    def update(id):
+        post_id = id
         post = db.get_or_404(Post, post_id)
         if request.method == "POST":
             title = request.form["title"]
@@ -75,6 +81,7 @@ class BlogController:
         return render_template("blog/update.html", post=post)
 
 
+# not used for now
 def get_post(post_id: id, check_author=True):
     post = db.get_or_404(Post, post_id)
 

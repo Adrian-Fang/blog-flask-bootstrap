@@ -6,3 +6,9 @@
   background: #cae6f6;
   border: 1px solid #377ba8;
 }
+
+/* footer */
+.list-unstyled a {
+  color: #495057;
+  text-decoration: none;
+}

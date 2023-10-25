@@ -25,5 +25,7 @@ def create_app(config_class=Config):
     app.register_blueprint(blogRouter)
     app.register_blueprint(userRouter)
     app.register_blueprint(adminRouter)
+    
+    app.add_url_rule("/", endpoint="index")
 
     return app

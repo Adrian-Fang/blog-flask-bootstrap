@@ -1,8 +1,8 @@
 {% extends 'layout.html' %}
-{% block title %}Posts{% endblock %}
+{% block title %}Wiki Posts{% endblock %}
 
 {% block header %}
-<h2>Posts</h2>
+<h2>Wiki Posts</h2>
 {% if g.user %}
 <a class="btn btn-success text-decoration-none" href="{{ url_for('blog.create') }}">New</a>
 {% endif %}
