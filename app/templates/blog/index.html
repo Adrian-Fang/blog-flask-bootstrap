@@ -1,8 +1,8 @@
 {% extends 'layout.html' %}
-{% block title %}Posts{% endblock %}
+{% block title %}Wiki Posts{% endblock %}
 
 {% block header %}
-<h2>Posts</h2>
+<h2>Wiki Posts</h2>
 {% if g.user %}
 <a class="btn btn-success text-decoration-none" href="{{ url_for('blog.create') }}">New</a>
 {% endif %}
@@ -14,17 +14,15 @@
   <div class="card-body">
     <h5 class="card-title">{{ post['title'] }}</h5>
     <h6 class="card-subtitle mb-2 text-body-secondary">
-      by {{ post['username'] }} on {{ post['created'].strftime('%Y-%m-%d') }}
+      by {{ post['user']['username'] }} on {{ post['created_at'] }}
     </h6>
     <p class="card-text">{{ post['body'] }}</p>
 
-    {% if g.user['id'] == post['author_id'] %}
-    <a class="card-link text-decoration-none" href="{{ url_for('blog.update', id=post['id']) }}">Edit</a>
+    {% if g.user['id'] == post['user_id'] %}
+    <a class="btn btn-success" href="{{ url_for('blog.update', id=post['id']) }}">Edit</a>
     {% endif %}
   </div>
 </article>
-{% if not loop.last %}
-<hr>
-{% endif %}
+
 {% endfor %}
 {% endblock %}

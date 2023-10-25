@@ -1,0 +1,66 @@
+{% extends 'layout.html' %}
+{% block title %}Wiki Posts{% endblock %}
+
+{% block header %}
+<h3>Wiki Posts</h3>
+{% endblock %}
+
+{% block content %}
+<ul class="nav nav-underline mb-3">
+  <li class="nav-item">
+    <a class="nav-link active" aria-current="page" href="/posts">Browse all</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/saved">Saved<span class="badge text-bg-light ms-1">0</span></a>
+  </li>
+</ul>
+
+{% if g.user %}
+<ul class="nav nav-tabs" id="filterItem" role="tablist">
+  <li class="nav-item" role="presentation">
+    <button class="nav-link active" id="tab-1" data-bs-toggle="tab" data-bs-target="#pane-1" type="button" role="tab"
+      aria-controls="pane-1" aria-selected="true">
+      Frontend Posts
+    </button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" id="tab-2" data-bs-toggle="tab" data-bs-target="#pane-2" type="button" role="tab"
+      aria-controls="pane-2" aria-selected="false">
+      New Search
+    </button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" id="tab-3" data-bs-toggle="tab" data-bs-target="#pane-3" type="button" role="tab"
+      aria-controls="pane-3" aria-selected="false">
+      +
+    </button>
+  </li>
+</ul>
+<div class="tab-content border border-top-0 container" id="filterItemContent">
+  <div class="tab-pane fade show active" id="pane-1" role="tabpanel" aria-labelledby="pane-1" tabindex="0">
+    <p>Front-end filters...</p>
+  </div>
+  <div class="tab-pane fade" id="pane-2" role="tabpanel" aria-labelledby="pane-2" tabindex="0">
+    <p>Customize a new search shit...</p>
+  </div>
+</div>
+{% endif %}
+
+<p class="my-2">3 results</p>
+{% for post in posts %}
+<article class="card my-3">
+  <div class="card-body">
+    <h5 class="card-title">{{ post['title'] }}</h5>
+    <h6 class="card-subtitle mb-2 text-body-secondary">
+      by {{ post['user']['username'] }} on {{ post['created_at'] }}
+    </h6>
+    <p class="card-text">{{ post['body'] }}</p>
+
+    {% if g.user['id'] == post['user_id'] %}
+    <a class="btn btn-success" href="{{ url_for('blog.update', id=post['id']) }}">Edit</a>
+    {% endif %}
+  </div>
+</article>
+{% endfor %}
+
+{% endblock content%}
